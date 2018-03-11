@@ -15,7 +15,7 @@ if (!phpCurlAvailable()) {
   <head>
     <meta charset="utf-8">
 
-    <title>Nano Node Monitor - <?php echo gethostname(); ?></title>
+    <title>Nano Node Monitor - <?php echo $nanoNodeName; ?></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -62,7 +62,16 @@ if (!phpCurlAvailable()) {
             <p><?php echo $welcomeMsg; ?></p>
           </div>
           <div class="col-lg-4 col-md-5 col-sm-6">
-            <div class="coinmarketcap-currency-widget" data-currencyid="1567" data-base="<?php echo $cmcBaseCurrency; ?>" data-secondary="<?php echo $cmcSecondaryCurrency; ?>" data-ticker="true" data-rank="false" data-marketcap="true" data-volume="true" data-stats="<?php echo $cmcBaseCurrency; ?>" data-statsticker="false"></div>
+            <div class="coinmarketcap-currency-widget" 
+            data-currencyid="1567" 
+            data-base="<?php echo $cmcBaseCurrency; ?>" 
+            data-secondary="<?php echo $cmcSecondaryCurrency; ?>" 
+            data-ticker="<?php echo bool2string($cmcTicker); ?>" 
+            data-rank="<?php echo bool2string($cmcRank); ?>" 
+            data-marketcap="<?php echo bool2string($cmcMarketcap); ?>" 
+            data-volume="<?php echo bool2string($cmcVolume); ?>" 
+            data-stats="<?php echo $cmcBaseCurrency; ?>" 
+            data-statsticker="<?php echo bool2string($cmcStatsticker); ?>"></div>
 
           </div>
         </div>
@@ -72,7 +81,7 @@ if (!phpCurlAvailable()) {
 
       <footer id="footer">
         <div class="row">
-          <div class="col-lg-12"
+          <div class="col-lg-12">
 
             <p>Version: <?php echo PROJECT_VERSION; ?></p>
 

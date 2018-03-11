@@ -1,16 +1,31 @@
 <?php
 
+// DO NOT MODIFY THIS FILE
+// Please head to the config.sample.php
+// and follow the instructions
+
 // ----------- General Variables -----------
 
 // autorefresh interval for the status webpage in seconds
 $autoRefreshInSeconds = 5;
 
-// a welcome message shown on top
-$welcomeMsg = 'Nano rocks!';
+// name of your node
+$nanoNodeName = gethostname();
 
-// coinmarketcap market data base and second currency
-$cmcBaseCurrency = "USD"; // e.g. USD, EUR, BTC, ETH
-$cmcSecondaryCurrency = "BTC";
+// a welcome message shown on top
+$welcomeMsg = '';
+
+// coinmarketcap widget
+// market data base and second currency e.g. USD, EUR, BTC, ETH
+$cmcBaseCurrency = 'USD';
+$cmcSecondaryCurrency = 'BTC';
+
+// other widget panels (TRUE / FALSE)
+$cmcTicker = FALSE;
+$cmcRank = FALSE;
+$cmcMarketcap = FALSE;
+$cmcVolume = FALSE;
+$cmcStatsticker = FALSE;
 
 // ----------- Nano Node Variables -----------
 
