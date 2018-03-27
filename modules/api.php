@@ -1,7 +1,7 @@
 <?php
 
 // include required files
-require_once __DIR__.'/modules/includes.php';
+require_once __DIR__ . '/modules/includes.php';
 
 // get curl handle
 $ch = curl_init();
@@ -59,10 +59,6 @@ $data->totalMem = getSystemTotalMem();
 //$data->uname = getUname();
 $data->nanoNodeName = $nanoNodeName;
 
-// get the node uptime
-$data->nodeUptime = getNodeUptime($uptimerobotApiKey);
 
 // close curl handle
 curl_close($ch);
-
-returnJson($data);

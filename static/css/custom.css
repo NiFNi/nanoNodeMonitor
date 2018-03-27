@@ -1,5 +1,5 @@
 body {
-    padding-top: 120px
+    padding-top: 50px
 }
 
 pre {
@@ -7,10 +7,11 @@ pre {
 }
 
 @media (min-width: 768px) {
-    body>.navbar-transparent {
+    body > .navbar-transparent {
         box-shadow: none
     }
-    body>.navbar-transparent .navbar-nav>.open>a {
+
+    body > .navbar-transparent .navbar-nav > .open > a {
         box-shadow: none
     }
 }
@@ -75,7 +76,6 @@ pre {
     margin: 5em 0
 }
 
-
 #footer li {
     float: left;
     margin-right: 1.5em;
@@ -132,8 +132,8 @@ pre {
 }
 
 h2 {
-   margin-top: 1em;
-   color: #ea882e
+    margin-top: 1em;
+    color: #ea882e
 }
 
 a.donationButton { /* Nano orange */
@@ -146,27 +146,31 @@ a.donationButton { /* Nano orange */
     text-decoration: none;
     transition: 0.3s;
     display: inline-block;
-} 
-
-
+}
 
 input[type=number] { /* Nano orange */
     border: 6px solid #ea882e;
-    color: black; 
+    color: black;
     width: 20%;
     padding: 5px 5px;
     font-size: 14px;
     margin: 4px 2px;
     box-sizing: border-box;
     border-radius: 4px;
-} 
+}
 
 .list-group-item:hover {
     background: #3e444c;
 }
 
-.truncate { 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%;
+    display: block;
+}
+
+.row {
+    padding-bottom: 10px;
 }
