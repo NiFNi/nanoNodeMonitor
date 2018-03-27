@@ -16,7 +16,7 @@ function phpCurlAvailable()
 // raw to Mnano
 function rawToMnano($raw, $precision)
 {
-  return round(($raw / 1000000000000000000000000000000.0), $precision);
+  return number_format(($raw / 1000000000000000000000000000000.0), $precision,'.',',');
 }
 
 // get system load average
@@ -75,6 +75,135 @@ function returnJson($data)
 }
 
 // converts boolean to a string
-function bool2string($boolean){
+function bool2string($boolean)
+{
     return ($boolean) ? 'true' : 'false';
 }
+
+// get version of latest release from github
+function getLatestReleaseVersion()
+{
+
+  // get release tag of "latest" from github
+  $ch = curl_init();
+  curl_setopt_array($ch, [
+    CURLOPT_URL => GITHUB_LATEST_API_URL,
+    CURLOPT_HTTPHEADER => [
+        "Accept: application/vnd.github.v3+json",
+        "Content-Type: text/plain",
+        "User-Agent: Chrome/47.0.2526.111"
+    ],
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_FOLLOWLOCATION => false,
+    CURLOPT_GET => true
+  ]);
+  $output = curl_exec($ch);      
+  curl_close($ch);
+
+  // decode json
+  $decoded = json_decode($output);
+
+  // tag string
+  if (array_key_exists("tag_name", $decoded))
+  {
+      $tagString = $decoded->tag_name;
+  
+    // search for version name x.x.x 
+    if (0 != preg_match('/(\d+\.?)+$/', $tagString, $versionString))
+    {
+        return $versionString[0];
+    }
+  }
+
+  return "";
+}
+
+// get a string with information about the 
+// current version and possible updates
+function getVersionInformation()
+{
+  $currentVersion = PROJECT_VERSION;
+  $latestVersion  = getLatestReleaseVersion();
+
+  $versionInfo = "Version: " . $currentVersion;
+
+  if ( version_compare($currentVersion, $latestVersion) < 0 )
+  {
+    $versionInfo .= "<br>A new version " . $latestVersion;
+    $versionInfo .= " is available at ";
+    $versionInfo .= "<a href=\"" . PROJECT_URL . "\" target=\"_blank\">GitHub.</a>";
+  }
+
+  return $versionInfo;
+
+}
+
+// info about operating system
+function getUname()
+{
+  return php_uname();
+}
+
+
+// get Node Uptime
+function getNodeUptime($apiKey, $uptimeRatio = 30)
+{
+  $curl = curl_init();
+  
+  curl_setopt_array($curl, array(
+    CURLOPT_URL => "https://api.uptimerobot.com/v2/getMonitors",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 5,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "POST",
+    CURLOPT_POSTFIELDS => "api_key=$apiKey&format=json&custom_uptime_ratios=$uptimeRatio",
+    CURLOPT_HTTPHEADER => array(
+      "cache-control: no-cache",
+      "content-type: application/x-www-form-urlencoded"
+    ),
+  ));
+  
+  $response = curl_exec($curl);
+  $err = curl_error($curl);
+  
+  curl_close($curl);
+  
+  if ($err) {
+    return "API error";
+  }
+
+  // decode JSON response
+  $response = json_decode($response);
+  
+  return $response->monitors[0]->custom_uptime_ratio;
+}
+
+
+// truncate long Nano addresses to display the first and 
+// last characaters with ellipsis in the center
+function truncateAddress($addr)
+{
+  $totalNumChar = NANO_ADDR_NUM_CHAR;
+  $numEllipsis  = 3; // ...
+  $numPrefix    = 4; // xrb_
+  $numAddrParts  = floor(($totalNumChar-$numEllipsis-$numPrefix) / 2.0);
+
+  return strlen($addr) > $totalNumChar ? substr($addr,0,$numPrefix+$numAddrParts)."...".substr($addr,-$numAddrParts) : $addr;
+}
+
+// get a block explorer URL from an account
+function getAccountUrl($account, $blockExplorer)
+{
+  switch ($blockExplorer)
+  {
+    case 'nano':
+      return "https://nano.org/en/explore/account/" . $account;
+    case 'nanoexplorer':
+      return "https://nanoexplorer.io/accounts/" . $account;
+    default:
+      return "https://www.nanode.co/account/" . $account;
+  }
+}
+

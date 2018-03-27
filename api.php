@@ -3,11 +3,6 @@
 // include required files
 require_once __DIR__.'/modules/includes.php';
 
-// check for curl package
-if (!phpCurlAvailable()) {
-    myError('Curl not available. Please install the php-curl package!');
-}
-
 // get curl handle
 $ch = curl_init();
 
@@ -23,6 +18,8 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 $data = new stdClass();
 $data->nanoNodeAccount = $nanoNodeAccount;
+$data->nanoNodeAccountShort = truncateAddress($data->nanoNodeAccount);
+$data->nanoNodeAccountUrl = getAccountUrl($data->nanoNodeAccount, $blockExplorer);
 
 // -- Get Version String from nano_node ---------------
 $rpcVersion = getVersion($ch);
@@ -40,23 +37,30 @@ $data->numPeers = count($peers);
 
 // -- Get node account balance from nano_node
 $rpcNodeAccountBalance = getAccountBalance($ch, $nanoNodeAccount);
-$data->accBalanceMnano = rawToMnano($rpcNodeAccountBalance->{'balance'}, 4);
+$data->accBalanceMnano = rawToMnano($rpcNodeAccountBalance->{'balance'}, $nanoNumDecimalPlaces);
 $data->accBalanceRaw = (int) $rpcNodeAccountBalance->{'balance'};
-$data->accPendingMnano = rawToMnano($rpcNodeAccountBalance->{'pending'}, 4);
+$data->accPendingMnano = rawToMnano($rpcNodeAccountBalance->{'pending'}, $nanoNumDecimalPlaces);
 $data->accPendingRaw = (int) $rpcNodeAccountBalance->{'pending'};
 
 // -- Get representative info for current node from nano_node
 $rpcNodeRepInfo = getRepresentativeInfo($ch, $nanoNodeAccount);
-$data->votingWeight = rawToMnano($rpcNodeRepInfo->{'weight'}, 4);
+$data->votingWeight = rawToMnano($rpcNodeRepInfo->{'weight'}, $nanoNumDecimalPlaces);
 $data->repAccount = $rpcNodeRepInfo->{'representative'} ?: '';
+$data->repAccountShort = truncateAddress($data->repAccount);
+$data->repAccountUrl = getAccountUrl($data->repAccount, $blockExplorer);
 
 // -- System uptime & memory info --
 $data->systemLoad = getSystemLoadAvg();
 $systemUptime = getSystemUptime();
-$systemUptimeStr = $systemUptime['days'].' days, '.$systemUptime['hours'].' hours, '.$systemUptime['mins'].' minutes';
+$systemUptimeStr = $systemUptime['days'].' days, '.$systemUptime['hours'].' hrs, '.$systemUptime['mins'].' mins';
 $data->systemUptime = $systemUptimeStr;
 $data->usedMem = getSystemUsedMem();
 $data->totalMem = getSystemTotalMem();
+//$data->uname = getUname();
+$data->nanoNodeName = $nanoNodeName;
+
+// get the node uptime
+$data->nodeUptime = getNodeUptime($uptimerobotApiKey);
 
 // close curl handle
 curl_close($ch);
