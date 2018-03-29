@@ -4,7 +4,8 @@
 function myError($errorMsg)
 {
   header("HTTP/1.1 503 Service Unavailable");
-  die($errorMsg);
+  echo '<p class="error">' . $errorMsg . '</p>';
+  die();
 }
 
 // check whether php-curl is installed
@@ -97,7 +98,7 @@ function getLatestReleaseVersion()
     CURLOPT_FOLLOWLOCATION => false,
     CURLOPT_GET => true
   ]);
-  $output = curl_exec($ch);      
+  $output = curl_exec($ch);
   curl_close($ch);
 
   // decode json

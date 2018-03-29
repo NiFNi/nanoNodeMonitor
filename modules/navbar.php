@@ -13,7 +13,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="contribute.php" target="_self">Contribute &amp; Donate</a>
+          <a class="nav-link" href="about.php" target="_self">Contribute &amp; Donate</a>
         </li>
 
         <li class="nav-item">

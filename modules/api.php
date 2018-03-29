@@ -1,7 +1,7 @@
 <?php
 
 // include required files
-require_once __DIR__ . '/modules/includes.php';
+require_once __DIR__ . '/includes.php';
 
 // get curl handle
 $ch = curl_init();
