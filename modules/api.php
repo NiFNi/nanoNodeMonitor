@@ -2,6 +2,7 @@
 
 // include required files
 require_once __DIR__ . '/includes.php';
+require_once __DIR__ . '/config.php';
 
 // get curl handle
 $ch = curl_init();
@@ -58,7 +59,8 @@ $data->usedMem = getSystemUsedMem();
 $data->totalMem = getSystemTotalMem();
 //$data->uname = getUname();
 $data->nanoNodeName = $nanoNodeName;
-
+// Get Nanode block count difference
+$data->nanodeData = getNanodeBlockCount($nanodeKey, $nanodeUrl);
 
 // close curl handle
 curl_close($ch);

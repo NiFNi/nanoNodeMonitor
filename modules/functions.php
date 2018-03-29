@@ -139,13 +139,6 @@ function getVersionInformation()
 
 }
 
-// info about operating system
-function getUname()
-{
-  return php_uname();
-}
-
-
 // get Node Uptime
 function getNodeUptime($apiKey, $uptimeRatio = 30)
 {
@@ -206,5 +199,38 @@ function getAccountUrl($account, $blockExplorer)
     default:
       return "https://www.nanode.co/account/" . $account;
   }
+}
+
+function getNanodeBlockCount($key, $nanodeUrl)
+{
+    var_dump($key);
+    var_dump($nanodeUrl);
+    $ch = curl_init();
+    $data = array('action' => 'block_count');
+    $data_string = json_encode($data);
+    curl_setopt($ch, CURLOPT_URL, $nanodeUrl);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($data_string),
+            'Authorization: ' . $key)
+    );
+
+
+    // Send the request and return response
+    $resp = curl_exec($ch);
+
+    if (!$resp)
+    {
+        return False;
+    }
+
+    // JSON decode and return
+    var_dump($resp);
+    $decoded = json_decode($resp);
+    //var_dump($decoded);
+    //var_dump($decoded->count);
+    curl_close($ch);
+    return $decoded;
 }
 

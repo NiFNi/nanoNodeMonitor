@@ -10,7 +10,8 @@ require_once 'api.php';
         <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Address
-                <a href="<?php echo $data->nanoNodeAccountUrl; ?>" class="truncate float-right"><?php echo $data->nanoNodeAccount; ?></a>
+                <a href="<?php echo $data->nanoNodeAccountUrl; ?>"
+                   class="truncate float-right"><?php echo $data->nanoNodeAccount; ?></a>
             </li>
         </ul>
     </div>
@@ -31,6 +32,10 @@ require_once 'api.php';
                 Voting Weight
                 <span class="float-right"><?php echo $data->votingWeight; ?> Nano</span>
             </li>
+            <li class="list-group-item">
+                Peers
+                <span class="float-right"><?php echo $data->numPeers; ?></span>
+            </li>
         </ul>
     </div>
     <div class="col-lg-4">
@@ -48,8 +53,10 @@ require_once 'api.php';
                 <span class="float-right"><?php echo $data->uncheckedBlocks; ?></span>
             </li>
             <li class="list-group-item">
-                Peers
-                <span class="float-right"><?php echo $data->numPeers; ?></span>
+                Blockcount Difference Nanode
+                <span class="float-right"><?php if ($data->nanodeData) {
+                        echo $data->nanodeData;
+                    } else echo "Could not reach Nanode"; ?></span>
             </li>
         </ul>
     </div>
