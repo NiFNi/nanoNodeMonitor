@@ -80,7 +80,12 @@ pre {
 
 #footer p {
     clear: left;
-    margin-bottom: 0
+    margin-bottom: 0;
+    width: 100%;
+}
+
+#footer p div {
+    display: inline;
 }
 
 .splash {
@@ -166,7 +171,13 @@ input[type=number] { /* Nano orange */
     max-width: 60%;
     display: block;
 }
-
+.truncateFoot {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: block;
+}
 .row {
     padding-bottom: 10px;
 }

@@ -174,19 +174,6 @@ function getNodeUptime($apiKey, $uptimeRatio = 30)
   return $response->monitors[0]->custom_uptime_ratio;
 }
 
-
-// truncate long Nano addresses to display the first and 
-// last characaters with ellipsis in the center
-function truncateAddress($addr)
-{
-  $totalNumChar = NANO_ADDR_NUM_CHAR;
-  $numEllipsis  = 3; // ...
-  $numPrefix    = 4; // xrb_
-  $numAddrParts  = floor(($totalNumChar-$numEllipsis-$numPrefix) / 2.0);
-
-  return strlen($addr) > $totalNumChar ? substr($addr,0,$numPrefix+$numAddrParts)."...".substr($addr,-$numAddrParts) : $addr;
-}
-
 // get a block explorer URL from an account
 function getAccountUrl($account, $blockExplorer)
 {
@@ -203,8 +190,6 @@ function getAccountUrl($account, $blockExplorer)
 
 function getNanodeBlockCount($key, $nanodeUrl)
 {
-    var_dump($key);
-    var_dump($nanodeUrl);
     $ch = curl_init();
     $data = array('action' => 'block_count');
     $data_string = json_encode($data);
@@ -215,6 +200,7 @@ function getNanodeBlockCount($key, $nanodeUrl)
             'Content-Length: ' . strlen($data_string),
             'Authorization: ' . $key)
     );
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
 
     // Send the request and return response
@@ -226,10 +212,7 @@ function getNanodeBlockCount($key, $nanodeUrl)
     }
 
     // JSON decode and return
-    var_dump($resp);
     $decoded = json_decode($resp);
-    //var_dump($decoded);
-    //var_dump($decoded->count);
     curl_close($ch);
     return $decoded;
 }

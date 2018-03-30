@@ -11,7 +11,13 @@ include 'modules/header.php';
         This website is a fork of this repository: <a href="https://github.com/nanotools/nanoNodeMonitor">original</a>.
         The fork can be found here: <a href="https://github.com/nifni/nanoNodeMonitor">fork</a>. I forked
         away because I wanted this frontend to be more simplistic than it was. For example I removed all Javascript
-        libraries to make the side load faster and consume less traffic (espiacilly on mobile).
+        libraries to make the side load faster and consume less traffic (espiacilly on mobile). Also I did not find
+        it important to show the current market situation for choosing me as a representative. That is why I removed the
+        coinmarketcap widget.
+    </p>
+    <p>
+        If you think about donating because of the sleek website, feel free to check out the original though.
+        The contributors there did most of the work!
     </p>
 
     <h2>About Me</h2>
@@ -44,7 +50,7 @@ include 'modules/header.php';
 
     <h2>How do I keep sure the node is running 24/7?</h2>
     <p>
-        This node is hosted on a root-server by <a href="https://netcup.de">Netcup</a>. Netcup is a german hosting
+        This node is hosted on a root-server by <a href="https://netcup.eu">Netcup</a>. Netcup is a german hosting
         provider with which I never had any problems. Downtimes outside of scheduled security patches never happened.
         The scheduled downtimes were always communicated accordingly and took only some minutes until everything
         was up again.
@@ -58,8 +64,20 @@ include 'modules/header.php';
 
     <h2>How can you support me?</h2>
     <p>
-        If you want to support me you can either donate me some Nano to the address at the bottom or scan this qr code:
+        If you want to rent anything from netcup feel free to contact me. I can give you referral keys which give you
+        up to 30% discount while I get 10% of everything you pay to netcup. So it would be a great deal for both of
+        us :P.
+    </p>
+    <p>
+        If you want to support me directly you can donate me some Nano to the address at the bottom or scan this qr code:
     </p>
     <img src="static/img/qr.png">
+
+    <h2>How can you contact me?</h2>
+    <p>
+        For any open questions you can contact me on one of the channels mentioned in the "About Me" chapter. For the
+        people who are not active on any of the mentioned platforms here is my email address:
+        <a href="mailto:nano@nifni.net?subject=[Node]">Contact</a>
+    </p>
     <!--- add the footer -->
 <?php include 'modules/footer.php'; ?>

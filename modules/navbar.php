@@ -9,16 +9,16 @@
       <ul class="nav navbar-nav ml-auto">
 
         <li class="nav-item">
-          <a class="nav-link" href="index.php" target="_self">Node Monitor</a>
+          <a class="nav-link" href="index.php">Node Monitor</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="about.php" target="_self">Contribute &amp; Donate</a>
+          <a class="nav-link" href="about.php">About</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="<?php echo PROJECT_URL; ?>" target="_blank">Source on GitHub</a>
-        </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="--><?php //echo PROJECT_URL; ?><!--">Source on GitHub</a>-->
+<!--        </li>-->
       </ul>
 
     </div>

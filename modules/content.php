@@ -11,7 +11,8 @@ require_once 'api.php';
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Address
                 <a href="<?php echo $data->nanoNodeAccountUrl; ?>"
-                   class="truncate float-right"><?php echo $data->nanoNodeAccount; ?></a>
+                   class="truncate float-right" id="nodeAccount"><?php echo $data->nanoNodeAccount; ?></a>
+                <button class="btn btn-dark btn-sm float-right" onclick="copy('nodeAccount')">Copy</button>
             </li>
         </ul>
     </div>
@@ -53,9 +54,9 @@ require_once 'api.php';
                 <span class="float-right"><?php echo $data->uncheckedBlocks; ?></span>
             </li>
             <li class="list-group-item">
-                Blockcount Difference Nanode
+                Difference to Nanode
                 <span class="float-right"><?php if ($data->nanodeData) {
-                        echo $data->nanodeData;
+                        echo $data->nanodeData->count-$data->currentBlock;
                     } else echo "Could not reach Nanode"; ?></span>
             </li>
         </ul>

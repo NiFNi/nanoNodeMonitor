@@ -8,26 +8,8 @@
 
 // ----------- General Variables -----------
 
-// autorefresh interval for the status webpage in seconds
-// $autoRefreshInSeconds = 5;
-
 // Name of your node (default: your hostname)
-// $nanoNodeName = '';
-
-// a welcome message shown on top
-// $welcomeMsg = 'Nano rocks!';
-
-// coinmarketcap widget
-// market data base and second currency e.g. USD, EUR, BTC, ETH
-// $cmcBaseCurrency = 'USD';
-// $cmcSecondaryCurrency = 'BTC';
-
-// other widget panels (TRUE / FALSE)
-// $cmcTicker = FALSE;
-// $cmcRank = FALSE;
-// $cmcMarketcap = FALSE;
-// $cmcVolume = FALSE;
-// $cmcStatsticker = FALSE;
+$nanoNodeName = 'testnode';
 
 // choice of Nano block explorer ('nanode', 'nanoexplorer', 'nano')
 // $blockExplorer = 'nanode';
@@ -35,22 +17,20 @@
 // ----------- Nano Node Variables -----------
 
 // ip address for RPC (default: [::1])
-// $nanoNodeRPCIP   = '[::1]';
+$nanoNodeRPCIP   = '[::1]';
 
 // ip address for RPC (default: 7076)
-// $nanoNodeRPCPort = '7076';
+$nanoNodeRPCPort = '7076';
 
-// account of this node 
-// $nanoNodeAccount = 'xrb_1f56swb9qtpy3yoxiscq9799nerek153w43yjc9atoaeg3e91cc9zfr89ehj'; 
+// account of this node
+$nanoNodeAccount = 'xrb_1fnx59bqpx11s1yn7i5hba3ot5no4ypy971zbkp5wtium3yyafpwhhwkq8fc';
 
 // donation account for maintaining this node
-// $nanoDonationAccount = 'xrb_1f56swb9qtpy3yoxiscq9799nerek153w43yjc9atoaeg3e91cc9zfr89ehj';
+$nanoDonationAccount = 'xrb_1xgfouwac4kd5d9bwsf18jp53g3sezcczoqxcfge1efwbntnjwrdky1jto4k';
 
-// number of decimal places to display Nano balances, i.e. 
+// number of decimal places to display Nano balances, i.e.
 // $nanoNumDecimalPlaces = 2;
 
-// ----------- Social -----------
-
-// Add your social accounts
-// Tutorial: https://github.com/nanotools/nanoNodeMonitor/wiki/Social-Accounts
-// $socials['reddit'] = 'https://www.reddit.com/user/NANOFAN1337/';
+// Nanode info
+$nanodeKey = "your-key";
+$nanodeUrl = 'https://api.nanode.co/';
