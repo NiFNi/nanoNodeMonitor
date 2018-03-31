@@ -79,5 +79,15 @@ include 'modules/header.php';
         people who are not active on any of the mentioned platforms here is my email address:
         <a href="mailto:nano@nifni.net?subject=[Node]">Contact</a>
     </p>
+
+    <h2>Why should you use me as your representative?</h2>
+    <p>
+        Well in the chapter above I described how I will make sure the node is running 24/7. Also I wrote a bit about me
+        so that you know who I am and when checking my social network sites you can make sure that I am really who I
+        claim I am. And last but not least I offer a e-mail list you can subscribe to. I will write about any updates
+        concerning my node (probably about two emails per month). To subscribe just write an e-mail to
+        <a href="mailto:nano@nifni.net?subject=[Node Newsletter]">nano@nifni.net</a> from the e-mail
+        you want to subscribe with. You can always unsubscribe by just writing me that you want to unsubscribe.
+    </p>
     <!--- add the footer -->
 <?php include 'modules/footer.php'; ?>
