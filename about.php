@@ -1,6 +1,5 @@
 <?php
 // include required files
-require_once __DIR__ . '/modules/includes.php';
 
 include 'modules/header.php';
 ?>
@@ -10,8 +9,8 @@ include 'modules/header.php';
     <p>
         This website is a fork of this repository: <a href="https://github.com/nanotools/nanoNodeMonitor">original</a>.
         The fork can be found here: <a href="https://github.com/nifni/nanoNodeMonitor">fork</a>. I forked
-        away because I wanted this frontend to be more simplistic than it was. For example I removed all Javascript
-        libraries to make the side load faster and consume less traffic (espiacilly on mobile). Also I did not find
+        away because I wanted this frontend to be more simplistic than it was. For example I removed some Javascript
+        libraries to make the side load faster and consume less traffic (especially on mobile). Also I did not find
         it important to show the current market situation for choosing me as a representative. That is why I removed the
         coinmarketcap widget.
     </p>
