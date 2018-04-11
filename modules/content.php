@@ -4,6 +4,15 @@ require_once 'api.php';
 
 
 <h2>Node Info</h2>
+
+<div class="row">
+    <div class="col-lg-8">
+        If you choose me as your node think about subscribing to my email list for updates about 
+        this node. Check the last chapter at the about page for further information. Also check 
+        my Banano node at <a href="https://banano.nifni.net">banano.nifni.net</a>. 
+    </div>
+</div>
+
 <div class="row">
 
     <div class="col-lg-12">
