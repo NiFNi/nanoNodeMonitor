@@ -1,5 +1,5 @@
 body {
-    padding-top: 80px
+    padding-top: 50px;
 }
 
 pre {
@@ -133,6 +133,11 @@ pre {
 }
 
 h2 {
+    margin-top: 1em;
+    color: #ea882e
+}
+
+h3 {
     margin-top: 1em;
     color: #ea882e
 }

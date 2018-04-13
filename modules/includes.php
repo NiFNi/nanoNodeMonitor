@@ -11,9 +11,6 @@ if(!file_exists(__DIR__ . '/config.php')) {
 // load the config
 require_once(__DIR__ . '/constants.php');
 
-// load the defaults
-require_once(__DIR__ . '/defaults.php');
-
 // load the config
 require_once(__DIR__ . '/config.php');
 

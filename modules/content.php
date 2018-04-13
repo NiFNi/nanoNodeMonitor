@@ -1,5 +1,5 @@
 <?php
-require_once 'api.php';
+require_once __DIR__ . '/api.php';
 ?>
 
 
@@ -19,8 +19,7 @@ require_once 'api.php';
         <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Address
-                <a href="<?php echo $data->nanoNodeAccountUrl; ?>"
-                   class="truncate float-right" id="nodeAccount"><?php echo $data->nanoNodeAccount; ?></a>
+                <span class="truncate float-right" id="nodeAccount"><?php echo $data->nanoNodeAccount; ?></span>
                 <button class="btn btn-dark btn-sm float-right" onclick="copy('nodeAccount')">Copy</button>
             </li>
         </ul>
@@ -31,20 +30,20 @@ require_once 'api.php';
     <div class="col-lg-4">
         <ul class="list-group">
             <li class="list-group-item">
-                Balance
-                <span class="float-right"><?php echo $data->accBalanceMnano; ?> Nano</span>
-            </li>
-            <li class="list-group-item">
-                Pending
-                <span class="float-right"><?php echo $data->accPendingMnano; ?> Nano</span>
-            </li>
-            <li class="list-group-item">
                 Voting Weight
-                <span class="float-right"><?php echo $data->votingWeight; ?> Nano</span>
+                <span class="float-right"><?php echo rawToMnano($data->votingWeight, $nanoNumDecimalPlaces); ?> Nano</span>
             </li>
             <li class="list-group-item">
-                Peers
-                <span class="float-right"><?php echo $data->numPeers; ?></span>
+                Delegator Count
+                <span class="float-right"><?php echo $data->delegCount; ?></span>
+            </li>
+            <li class="list-group-item">
+                Current Block
+                <span class="float-right"><?php echo $data->currentBlock; ?></span>
+            </li>
+            <li class="list-group-item">
+                Unchecked Blocks
+                <span class="float-right"><?php echo $data->uncheckedBlocks; ?></span>
             </li>
         </ul>
     </div>
@@ -55,18 +54,16 @@ require_once 'api.php';
                 <span class="float-right"><?php echo $data->version; ?></span>
             </li>
             <li class="list-group-item">
-                Current Block
-                <span class="float-right"><?php echo $data->currentBlock; ?></span>
+                Peers
+                <span class="float-right"><?php echo $data->numPeers; ?></span>
             </li>
             <li class="list-group-item">
-                Unchecked Blocks
-                <span class="float-right"><?php echo $data->uncheckedBlocks; ?></span>
+                Ledger File Size
+                <span class="float-right"><?php echo round($data->ldbSize / 1024 / 1024 / 1024, 3); ?> GiB</span>
             </li>
             <li class="list-group-item">
-                Difference to Nanode
-                <span class="float-right"><?php if ($data->nanodeData) {
-                        echo $data->nanodeData->count-$data->currentBlock;
-                    } else echo "Could not reach Nanode"; ?></span>
+                Blockcount diff to <a href="https://nanonode.ninja">node ninja</a>
+                <span class="float-right"><?php echo $data->ninjaBlockCount-$data->currentBlock;?></span>
             </li>
         </ul>
     </div>
@@ -94,4 +91,28 @@ require_once 'api.php';
     </div>
 
 
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        <h3>Protocol Versions</h3>
+        <ul class="list-group">
+            <?php foreach($data->networkVersions as $version=>$count): ?>
+            <li class="list-group-item">
+                <?php echo v.$version?>
+                <span class="float-right"><?php echo $count; ?></span>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <div class="col-lg-3">
+        <h3>Block Types</h3>
+        <ul class="list-group">
+            <?php foreach($data->blockTypes as $version=>$count): ?>
+            <li class="list-group-item">
+                <?php echo $version?>
+                <span class="float-right"><?php echo $count; ?></span>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
 </div>

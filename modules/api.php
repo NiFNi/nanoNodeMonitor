@@ -13,40 +13,31 @@ if (!$ch) {
 
 // we have a valid curl handle here
 // set some curl options
-curl_setopt($ch, CURLOPT_URL, 'http://'.$nanoNodeRPCIP.':'.$nanoNodeRPCPort);
+curl_setopt($ch, CURLOPT_URL, 'https://'.$nanoNodeRPCIP.':'.$nanoNodeRPCPort.$nanoNodeRPCPath);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 $data = new stdClass();
 $data->nanoNodeAccount = $nanoNodeAccount;
-$data->nanoNodeAccountUrl = getAccountUrl($data->nanoNodeAccount, $blockExplorer);
 
 // -- Get Version String from nano_node ---------------
 $rpcVersion = getVersion($ch);
 $data->version = $rpcVersion->{'node_vendor'};
 
 // -- Get get current block from nano_node
-$rpcBlockCount = getBlockCount($ch);
-$data->currentBlock = $rpcBlockCount->{'count'};
-$data->uncheckedBlocks = $rpcBlockCount->{'unchecked'};
+$data->currentBlock = (int) file_get_contents(__DIR__."/../data/blockcount");
+$data->uncheckedBlocks = (int) file_get_contents(__DIR__."/../data/unchecked");
 
 // -- Get number of peers from nano_node
-$rpcPeers = getPeers($ch);
-$peers = (array) $rpcPeers->{'peers'};
-$data->numPeers = count($peers);
+$data->numPeers = (int) file_get_contents(__DIR__."/../data/peers");
 
-// -- Get node account balance from nano_node
-$rpcNodeAccountBalance = getAccountBalance($ch, $nanoNodeAccount);
-$data->accBalanceMnano = rawToMnano($rpcNodeAccountBalance->{'balance'}, $nanoNumDecimalPlaces);
-$data->accBalanceRaw = (int) $rpcNodeAccountBalance->{'balance'};
-$data->accPendingMnano = rawToMnano($rpcNodeAccountBalance->{'pending'}, $nanoNumDecimalPlaces);
-$data->accPendingRaw = (int) $rpcNodeAccountBalance->{'pending'};
-
-// -- Get representative info for current node from nano_node
-$rpcNodeRepInfo = getRepresentativeInfo($ch, $nanoNodeAccount);
-$data->votingWeight = rawToMnano($rpcNodeRepInfo->{'weight'}, $nanoNumDecimalPlaces);
-$data->repAccount = $rpcNodeRepInfo->{'representative'} ?: '';
-$data->repAccountUrl = getAccountUrl($data->repAccount, $blockExplorer);
+$data->ldbSize = (int) file_get_contents(__DIR__."/../data/ldbsize");
+$data->delegCount = (int) file_get_contents(__DIR__."/../data/delegcount");
+$data->ninjaBlockCount = (int) file_get_contents(__DIR__."/../data/ninjablockcount");
+$data->votingWeight = (float) file_get_contents(__DIR__."/../data/votingweight");
+$data->nanoNodeName = "nano.nifni.net";
+$data->networkVersions = json_decode(file_get_contents((__DIR__."/../data/networkversion.json")));
+$data->blockTypes = json_decode(file_get_contents((__DIR__."/../data/blocktypes.json")));
 
 // -- System uptime & memory info --
 $data->systemLoad = getSystemLoadAvg();
@@ -55,10 +46,6 @@ $systemUptimeStr = $systemUptime['days'].' days, '.$systemUptime['hours'].' hrs,
 $data->systemUptime = $systemUptimeStr;
 $data->usedMem = getSystemUsedMem();
 $data->totalMem = getSystemTotalMem();
-//$data->uname = getUname();
-$data->nanoNodeName = $nanoNodeName;
-// Get Nanode block count difference
-$data->nanodeData = getNanodeBlockCount($nanodeKey, $nanodeUrl);
 
 // close curl handle
 curl_close($ch);
