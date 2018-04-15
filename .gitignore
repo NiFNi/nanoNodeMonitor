@@ -2,3 +2,5 @@
 modules/config.php
 .idea/
 data/*
+scripts/config.json
+about.php
