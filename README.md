@@ -63,11 +63,18 @@ Add this but be sure to change the path to the script if it is something else:
 ```
 You can change the timings when the scripts will be executed.
 
-Last you need to create the data directory in the cloned repository. For that just go to the installation directory and:
+You now need to create the data directory in the cloned repository. This will be the place where the scripts will store the values. For that just go to the installation directory and:
 
     mkdir data
 
-If anything did not work out as you wanted it to message me or create issue.
+Last you need to create the about.php:
+    
+    cp about.sample.php about.php
+Now change the about.php to your needs (if you don't know vim change `vim` to `nano` in this command):
+
+    vim about.php
+
+If anything did not work out as described message me or create an issue.
 
 
 ## Updating
