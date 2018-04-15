@@ -1,3 +1,6 @@
-count=$(curl -s --data '{"action": "delegators_count", "account": "xrb_1fnx59bqpx11s1yn7i5hba3ot5no4ypy971zbkp5wtium3yyafpwhhwkq8fc"}' http://localhost:7076 | jq -r '.count')
+DIR="$( cd "$(dirname "$0")" ; pwd -P )"
+url=$(jq -r '.fullurl' $DIR"/config.json")
+repaddr=$(jq -r '.repaddress' $DIR"/config.json")
+count=$(curl -s --data '{"action": "delegators_count", "account": "'$repaddr'"}' $url | jq -r '.count')
 DIR="$( cd "$(dirname "$0")" ; pwd -P )"
 echo $count > $DIR"/../data/delegcount"

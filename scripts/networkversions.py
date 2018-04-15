@@ -3,7 +3,10 @@ import json
 import os
 from collections import OrderedDict
 
-url = 'http://localhost:7076'
+direc = os.path.dirname(os.path.realpath(__file__))
+
+with open(direc + "/config.json", "r") as conf:
+    url = json.load(conf)["fullurl"]
 payload = {'action': 'peers'}
 
 r = requests.post(url, data=json.dumps(payload))
@@ -18,7 +21,6 @@ for key, val in result.items():
         versions[val] = 1
 ordered = OrderedDict(sorted(versions.items()))
 
-direc = os.path.dirname(os.path.realpath(__file__))
 with open(direc + "/../data/networkversion.json", "w") as text_file:
     print(json.dumps(ordered), file=text_file)
 
