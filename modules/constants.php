@@ -12,3 +12,6 @@ define('GITHUB_LATEST_API_URL', 'https://api.github.com/repos/nifni/nanoNodeMoni
 
 // total number of characters for displaying Nano addresses including ellipsis
 define ('NANO_ADDR_NUM_CHAR', 17);
+
+// total nano supply in Mnano
+define ('NANO_SUPPLY',  133248290);

@@ -38,6 +38,7 @@ $data->votingWeight = (float) file_get_contents(__DIR__."/../data/votingweight")
 $data->nanoNodeName = "nano.nifni.net";
 $data->networkVersions = json_decode(file_get_contents((__DIR__."/../data/networkversion.json")));
 $data->blockTypes = json_decode(file_get_contents((__DIR__."/../data/blocktypes.json")));
+$data->onlineVotingWeight = json_decode(file_get_contents((__DIR__."/../data/onlinevotingweight.json")));
 
 // -- System uptime & memory info --
 $data->systemLoad = getSystemLoadAvg();
