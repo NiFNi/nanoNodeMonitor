@@ -124,7 +124,7 @@ require_once __DIR__ . '/api.php';
             </li>
             <li class="list-group-item">
                 Online Voting Weight
-                <span class="float-right"><?php echo prettyFormatNano(rawToMnano($data->onlineVotingWeight->weight), $nanoNumDecimalPlaces); ?> Nano</span>
+                <span class="float-right"><?php echo prettyFormatNano(rawToMnano($data->onlineVotingWeight->weight), 0); ?> Nano</span>
             </li>
             <li class="list-group-item">
                 Online Voting Weight in %
