@@ -4,3 +4,4 @@ modules/config.php
 data/*
 scripts/config.json
 about.php
+report.html

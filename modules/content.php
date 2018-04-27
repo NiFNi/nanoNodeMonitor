@@ -98,7 +98,7 @@ require_once __DIR__ . '/api.php';
         <ul class="list-group">
             <?php foreach($data->networkVersions as $version=>$count): ?>
             <li class="list-group-item">
-                <?php echo v.$version?>
+                <?php echo "v".$version?>
                 <span class="float-right"><?php echo $count;  echo " (" . round(($count / $data->numPeers * 100), 2)  . "%)";?></span>
             </li>
             <?php endforeach; ?>

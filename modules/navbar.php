@@ -13,6 +13,9 @@
         </li>
 
         <li class="nav-item">
+          <a class="nav-link" href="nodes.php">Other Nodes</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="about.php">About</a>
         </li>
 

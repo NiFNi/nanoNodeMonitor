@@ -31,17 +31,17 @@ $data->uncheckedBlocks = (int) file_get_contents($pathToData . "/unchecked");
 // -- Get number of peers from nano_node
 $data->numPeers = (int) file_get_contents($pathToData . "/peers");
 
-$data->ldbSize = (int) file_get_contents($pathToData . "/ldbsize");
-$data->delegCount = (int) file_get_contents($pathToData . "/delegcount");
-$data->ninjaBlockCount = (int) file_get_contents($pathToData . "/ninjablockcount");
-$data->votingWeight = (float) file_get_contents($pathToData . "/votingweight");
+#$data->ldbSize = (int) file_get_contents($pathToData . "/ldbsize");
+#$data->delegCount = (int) file_get_contents($pathToData . "/delegcount");
+#$data->ninjaBlockCount = (int) file_get_contents($pathToData . "/ninjablockcount");
+$data->votingWeight = rawToMnano((float) file_get_contents($pathToData . "/votingweight"));
 $data->nanoNodeName = "nano.nifni.net";
 
 // -- System uptime & memory info --
-$data->systemLoad = getSystemLoadAvg();
-$systemUptime = getSystemUptime();
-$systemUptimeStr = $systemUptime['days'].' days, '.$systemUptime['hours'].' hrs, '.$systemUptime['mins'].' mins';
-$data->systemUptime = $systemUptimeStr;
+#$data->systemLoad = getSystemLoadAvg();
+#$systemUptime = getSystemUptime();
+#$systemUptimeStr = $systemUptime['days'].' days, '.$systemUptime['hours'].' hrs, '.$systemUptime['mins'].' mins';
+#$data->systemUptime = $systemUptimeStr;
 $data->usedMem = getSystemUsedMem();
 $data->totalMem = getSystemTotalMem();
 
