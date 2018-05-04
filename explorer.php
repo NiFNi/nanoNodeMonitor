@@ -4,6 +4,7 @@ require_once __DIR__.'/modules/includes.php';
 require_once __DIR__.'/modules/api-nodes.php';
 include 'modules/header.php';
 $ADDRESSIDENT = "xrb_";
+$UNIT = "Nano";
 ?>
 
 <?php 
@@ -69,13 +70,13 @@ $history = getAddrHistory($ch, $search, 10);
 if ($block->type === "send") {
     $account = "to " . $block->destination;
     $accountLink = $block->destination;
-    $amount = rawToMnano($block->amount);
+    $amount = rawToMnano($block->amount) . " " . $UNIT;
 }
 
 if ($block->type === "receive") {
     $account = "from " . $block->account;
     $accountLink = $block->account;
-    $amount = rawToMnano($block->amount);
+    $amount = rawToMnano($block->amount) . " " . $UNIT;
 }
 
 if ($block->type === "change") {
@@ -87,7 +88,7 @@ if ($block->type === "change") {
 if ($block->type === "open") {
     $account = "from " . $block->account;
     $accountLink = $block->account;
-    $amount = rawToMnano($block->amount);
+    $amount = rawToMnano($block->amount) . " " . $UNIT;
 }
 
 if ($block->type === "state") {
@@ -96,19 +97,19 @@ if ($block->type === "state") {
         $destination = json_decode($complete->contents)->link_as_account;
         $account = "to " . $destination;
         $accountLink = $destination;
-        $amount = rawToMnano($block->amount);
+        $amount = rawToMnano($block->amount) . " " . $UNIT;
     }
     if ($block->subtype === "open") {
         $sender = getBlockAccount($block->link, $ch);
         $account = "from " . $sender;
         $accountLink = $sender;
-        $amount = rawToMnano($block->amount);
+        $amount = rawToMnano($block->amount) . " " . $UNIT;
     }
     if ($block->subtype === "receive") {
         $sender = getBlockAccount($block->link, $ch);
         $account = "from " . $sender;
         $accountLink = $sender;
-        $amount = rawToMnano($block->amount);
+        $amount = rawToMnano($block->amount) . " " . $UNIT;
     }
     if ($block->subtype === "change") {
         $account = "to " . $block->representative;
