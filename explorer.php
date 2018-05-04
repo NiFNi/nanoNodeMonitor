@@ -167,7 +167,7 @@ if ($block->type === "state (send)") {
 <?php if($block->type === "send" or $block->type === "state (send)") : ?>
     <li class="list-group-item">
         Amount
-        <span class="float-right"><?php echo sprintf('%f', rawToMnano($fullblock->amount)); ?> Nano</span>
+        <span class="float-right"><?php echo sprintf('%f', rawToMnano($fullblock->amount)) . " " . $UNIT; ?></span>
     </li>
     <li class="list-group-item">
         From
@@ -181,7 +181,7 @@ if ($block->type === "state (send)") {
 <?php if($block->type === "receive" or $block->type === "open" or $block->type === "state (receive)" or $block->type === "state (open)") : ?>
     <li class="list-group-item">
         Amount
-        <span class="float-right"><?php echo sprintf('%f', rawToMnano($fullblock->amount)); ?> Nano</span>
+        <span class="float-right"><?php echo sprintf('%f', rawToMnano($fullblock->amount)) . " " . $UNIT; ?></span>
     </li>
     <li class="list-group-item">
         From
@@ -212,7 +212,7 @@ if ($block->type === "state (send)") {
     </li>
     <li class="list-group-item">
         Balance
-        <span class="float-right truncate"><?php echo sprintf('%f', rawToMnano($fullblock->balance)); ?> Nano</span>
+        <span class="float-right truncate"><?php echo sprintf('%f', rawToMnano($fullblock->balance)) . " " . $UNIT; ?></span>
     </li>
 </ul>
 
