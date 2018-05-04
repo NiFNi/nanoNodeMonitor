@@ -132,3 +132,14 @@ function getNodeUptime($apiKey, $uptimeRatio = 30)
   return $response->monitors[0]->custom_uptime_ratio;
 }
 
+function blockSubType($block, $fullblock) {
+    if (intval($block->previous, 16) === 0) {return "open";} 
+    if (intval($block->link, 16) === 0) {return "change";} 
+    if ($fullblock->source_account === "0") {return "send";} 
+    return "receive";
+}
+
+function getBlockAccount($hash, $ch) {
+    return reset(getBlock($ch, $hash)->blocks)->block_account;
+}
+

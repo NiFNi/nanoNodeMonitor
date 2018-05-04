@@ -14,8 +14,7 @@ results = {}
 for name, url in nodes.items():
     try:
         r = requests.get(url + "/api.php", timeout=5)
-    except (ConnectionError, ConnectTimeout,
-            requests.exceptions.ReadTimeout):
+    except Exception:
         continue
     if r.status_code != 200:
         continue

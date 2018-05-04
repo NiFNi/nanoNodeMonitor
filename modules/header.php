@@ -6,7 +6,6 @@
     <title>Nano Node Monitor</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="robots" content="noindex" />
     <link rel="stylesheet" href="static/css/bootstrap.min.css" media="screen">
     <link rel="stylesheet" href="static/css/custom.css" media="screen">
@@ -20,4 +19,4 @@
     <?php include __DIR__ . '/navbar.php'; ?>
 
     <!-- logo and ticker -->
-    <div class="container">
+    <div class="container-fluid">

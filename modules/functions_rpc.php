@@ -33,4 +33,31 @@ function getVersion($ch)
   return postCurl($ch, $data);
 }
 
+function getAddrHistory($ch, $addr, $count)
+{
+  // get version string
+    $data = array(
+        "action" => "account_history",
+        "account" => $addr,
+        "count" => strval($count),
+        "raw" => "true"
+    );
 
+  // post curl
+  return postCurl($ch, $data);
+}
+
+function getBlock($ch, $hash)
+{
+  // get version string
+    $data = array(
+        "action" => "blocks_info",
+        "hashes" => array($hash),
+        "pending" => "true",
+        "source" => "true",
+        "balance" => "true"
+    );
+
+  // post curl
+  return postCurl($ch, $data);
+}
