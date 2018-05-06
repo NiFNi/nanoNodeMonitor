@@ -54,19 +54,29 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 <?php if($is_addr) : ?>
 <?php 
 $history = getAddrHistory($ch, $search, 10);
+$dbconn = pg_connect("host=$pg_host dbname=$pg_dbname user=$pg_user password=$pg_password")
+                or die('Could not connect: ' . pg_last_error());
 ?>
+<div class="table-responsive">
 <table class="table table-dark table-hover">
   <thead class="">
     <tr>
       <th scope="col" >Type</th>
       <th scope="col" >Account</th>
       <th scope="col" >Amount</th>
+      <th scope="col" >UTC Time</th>
       <th scope="col" >Hash</th>
     </tr>
   </thead>
   <tbody>
     <?php foreach($history->history as $block): ?>
 <?php
+$timestamp = getTimestamp($block->hash);
+if ($timestamp != 0) {
+    $date = date('H:i d-m-Y', $timestamp/1000);
+} else {
+    $date = "N/A";
+}
 if ($block->type === "send") {
     $account = "to " . $block->destination;
     $accountLink = $block->destination;
@@ -120,14 +130,19 @@ if ($block->type === "state") {
 }
 ?>
         <tr>
-            <td><?php echo $block->type; ?></td>
-            <td><a href="?s=<?php echo $accountLink; ?>"><?php echo $account; ?></a></td>
-            <td><?php echo $amount; ?></td>
-            <td><a href="?s=<?php echo $block->hash; ?>"><?php echo $block->hash; ?></a></td>
+            <td class="no-wrap"><?php echo $block->type; ?></td>
+            <td class="no-wrap"><a href="?s=<?php echo $accountLink; ?>"><?php echo $account; ?></a></td>
+            <td class="no-wrap"><?php echo $amount; ?></td>
+            <td class="no-wrap"><?php echo $date?></td>
+            <td><div class="truncatehash"><a href="?s=<?php echo $block->hash; ?>"><?php echo $block->hash; ?></a></div></td>
         </tr>
     <?php endforeach; ?>
+<?php
+pg_close($dbconn);
+?>
   </tbody>
 </table>
+</div>
 <?php endif; ?>
 
 <?php if($is_block) : ?>
@@ -138,6 +153,10 @@ $fullblock = reset(getBlock($ch, $search)->blocks);
 <?php if($fullblock) : ?>
 <?php
 $block = json_decode($fullblock->contents);
+$dbconn = pg_connect("host=$pg_host dbname=$pg_dbname user=$pg_user password=$pg_password")
+                or die('Could not connect: ' . pg_last_error());
+$timestamp = getTimestamp($search);
+pg_close($dbconn);
 if ($block->type === "state") {
     $block->type = "state (" .blockSubType($block, $fullblock) . ")";
 }
@@ -167,7 +186,7 @@ if ($block->type === "state (send)") {
 <?php if($block->type === "send" or $block->type === "state (send)") : ?>
     <li class="list-group-item">
         Amount
-        <span class="float-right"><?php echo sprintf('%f', rawToMnano($fullblock->amount)) . " " . $UNIT; ?></span>
+        <span class="float-right"><?php echo rawToMnano($fullblock->amount) . " " . $UNIT; ?></span>
     </li>
     <li class="list-group-item">
         From
@@ -181,7 +200,7 @@ if ($block->type === "state (send)") {
 <?php if($block->type === "receive" or $block->type === "open" or $block->type === "state (receive)" or $block->type === "state (open)") : ?>
     <li class="list-group-item">
         Amount
-        <span class="float-right"><?php echo sprintf('%f', rawToMnano($fullblock->amount)) . " " . $UNIT; ?></span>
+        <span class="float-right"><?php echo rawToMnano($fullblock->amount) . " " . $UNIT; ?></span>
     </li>
     <li class="list-group-item">
         From
@@ -211,8 +230,8 @@ if ($block->type === "state (send)") {
         <span class="float-right truncate"><?php echo $block->signature; ?></span>
     </li>
     <li class="list-group-item">
-        Balance
-        <span class="float-right truncate"><?php echo sprintf('%f', rawToMnano($fullblock->balance)) . " " . $UNIT; ?></span>
+        UTC Time
+        <span class="float-right truncate"><?php echo date('H:i d-m-Y', $timestamp/1000); ?></span>
     </li>
 </ul>
 

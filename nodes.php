@@ -9,6 +9,7 @@ include 'modules/header.php';
 <h2>Nodes</h2>
 red nodes = more than 5k blocks behind, orange nodes = 2k - 5k blocks behind<br>
 To sort click on a header!
+<div class="table-responsive">
 <table class="table table-dark table-hover table-sm" id="nodes">
   <thead class="">
     <tr>
@@ -33,15 +34,16 @@ if ($diff > 5000) {
       ?>
       <tr class="<?php echo $row?>">
       <th scope="row"><a href="<?php echo $node->url; ?>"><?php echo $name; ?></a></th>
-        <td><?php echo intval($node->currentBlock); ?></td>
-        <td><?php echo intval($node->uncheckedBlocks); ?></td>
-        <td><?php echo intval($node->numPeers); ?></td>
-        <td><?php echo $node->version; ?></td>
-        <td><?php echo $diff ?></td>
+        <td class="no-wrap"><?php echo intval($node->currentBlock); ?></td>
+        <td class="no-wrap"><?php echo intval($node->uncheckedBlocks); ?></td>
+        <td class="no-wrap"><?php echo intval($node->numPeers); ?></td>
+        <td class="no-wrap"><?php echo $node->version; ?></td>
+        <td class="no-wrap"><?php echo $diff ?></td>
       </tr>
     <?php endforeach; ?>
   </tbody>
 </table>
+</div>
 
 <script src='static/js/tablesort/tablesort.js'></script>
 <script src='static/js/tablesort/sorts/tablesort.number.js'></script>

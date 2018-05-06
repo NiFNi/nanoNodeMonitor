@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__ . "/config.php");
 
 // print error and die
 function myError($errorMsg)
@@ -143,3 +144,11 @@ function getBlockAccount($hash, $ch) {
     return reset(getBlock($ch, $hash)->blocks)->block_account;
 }
 
+function getTimeStamp($hash) {
+    // Performing SQL query
+    $query = "SELECT * FROM timestamps where hash='$hash'";
+    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+    $row = pg_fetch_row($result);
+    pg_free_result($result);
+    return $row[2];
+}
