@@ -39,6 +39,8 @@ $data->nanoNodeName = $nanoNodeName;
 $data->networkVersions = json_decode(file_get_contents((__DIR__."/../data/networkversion.json")));
 $data->blockTypes = json_decode(file_get_contents((__DIR__."/../data/blocktypes.json")));
 $data->onlineVotingWeight = json_decode(file_get_contents((__DIR__."/../data/onlinevotingweight.json")));
+$data->txh = json_decode(file_get_contents((__DIR__."/../data/txh.json")));
+#var_dump(json_encode($data->txh));
 
 // -- System uptime & memory info --
 $data->systemLoad = getSystemLoadAvg();

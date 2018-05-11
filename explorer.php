@@ -3,7 +3,7 @@
 require_once __DIR__.'/modules/includes.php';
 require_once __DIR__.'/modules/api-nodes.php';
 include 'modules/header.php';
-$ADDRESSIDENT = "xrb_";
+$ADDRESSIDENT = array("xrb_", "nano_", "nano-", "xrb-");
 $UNIT = "Nano";
 ?>
 
@@ -13,9 +13,12 @@ $is_block = false;
 $search = "";
 if (isset($_GET["s"]) && $_GET["s"] !== "") {
     $search = $_GET["s"];
-    if (substr($search, 0, strlen($ADDRESSIDENT)) === $ADDRESSIDENT) {
-        $is_addr = true;
-    } else {
+    foreach ($ADDRESSIDENT as $key => $val) {
+        if (substr($search, 0, strlen($val)) === $val) {
+            $is_addr = true;
+        }
+    }
+    if (!$is_addr) {
         $is_block = true;
     }
 }
@@ -80,25 +83,29 @@ if ($timestamp != 0) {
 if ($block->type === "send") {
     $account = "to " . $block->destination;
     $accountLink = $block->destination;
-    $amount = rawToMnano($block->amount) . " " . $UNIT;
+    $amount = "-" . rawToMnano($block->amount) . " " . $UNIT;
+    $colorclass = "red";
 }
 
 if ($block->type === "receive") {
     $account = "from " . $block->account;
     $accountLink = $block->account;
-    $amount = rawToMnano($block->amount) . " " . $UNIT;
+    $amount = "+" . rawToMnano($block->amount) . " " . $UNIT;
+    $colorclass = "green";
 }
 
 if ($block->type === "change") {
     $account = "to " . $block->representative;
     $accountLink = $block->representative;
     $amount = "N/A";
+    $colorclass = "blue";
 }
 
 if ($block->type === "open") {
     $account = "from " . $block->account;
     $accountLink = $block->account;
-    $amount = rawToMnano($block->amount) . " " . $UNIT;
+    $amount = "+" . rawToMnano($block->amount) . " " . $UNIT;
+    $colorclass = "green";
 }
 
 if ($block->type === "state") {
@@ -107,32 +114,36 @@ if ($block->type === "state") {
         $destination = json_decode($complete->contents)->link_as_account;
         $account = "to " . $destination;
         $accountLink = $destination;
-        $amount = rawToMnano($block->amount) . " " . $UNIT;
+        $amount = "-" . rawToMnano($block->amount) . " " . $UNIT;
+        $colorclass = "red";
     }
     if ($block->subtype === "open") {
         $sender = getBlockAccount($block->link, $ch);
         $account = "from " . $sender;
         $accountLink = $sender;
-        $amount = rawToMnano($block->amount) . " " . $UNIT;
+        $amount = "+" . rawToMnano($block->amount) . " " . $UNIT;
+        $colorclass = "green";
     }
     if ($block->subtype === "receive") {
         $sender = getBlockAccount($block->link, $ch);
         $account = "from " . $sender;
         $accountLink = $sender;
-        $amount = rawToMnano($block->amount) . " " . $UNIT;
+        $amount = "+" . rawToMnano($block->amount) . " " . $UNIT;
+        $colorclass = "green";
     }
     if ($block->subtype === "change") {
         $account = "to " . $block->representative;
         $accountLink = $block->representative;
         $amount = "N/A";
+        $colorclass = "blue";
     }
     $block->type = "state (".$block->subtype.")";
 }
 ?>
         <tr>
-            <td class="no-wrap"><?php echo $block->type; ?></td>
+            <td class="no-wrap <?php echo $colorclass; ?>"><?php echo $block->type; ?></td>
             <td class="no-wrap"><a href="?s=<?php echo $accountLink; ?>"><?php echo $account; ?></a></td>
-            <td class="no-wrap"><?php echo $amount; ?></td>
+            <td class="no-wrap <?php echo $colorclass; ?>"><?php echo $amount; ?></td>
             <td class="no-wrap"><?php echo $date?></td>
             <td><div class="truncatehash"><a href="?s=<?php echo $block->hash; ?>"><?php echo $block->hash; ?></a></div></td>
         </tr>
@@ -166,12 +177,21 @@ if ($block->type === "state (receive)" or $block->type === "state (open)") {
 if ($block->type === "state (send)") {
     $block->destination = $block->link_as_account;
 }
+if (strpos($block->type, 'send') !== false) {
+    $colorclass = "red";
+}
+if (strpos($block->type, 'receive') !== false) {
+    $colorclass = "green";
+}
+if (strpos($block->type, 'change') !== false) {
+    $colorclass = "blue";
+}
 ?>
 <ul class="list-group col-lg-8">
     <h3>Block Information</h3>
     <li class="list-group-item">
         Type
-        <span class="float-right"><?php echo $block->type; ?></span>
+        <span class="float-right <?php echo $colorclass; ?>"><?php echo $block->type; ?></span>
     </li>
 <?php if($block->type === "change" or $block->type === "state (change)") : ?>
     <li class="list-group-item">
@@ -186,7 +206,7 @@ if ($block->type === "state (send)") {
 <?php if($block->type === "send" or $block->type === "state (send)") : ?>
     <li class="list-group-item">
         Amount
-        <span class="float-right"><?php echo rawToMnano($fullblock->amount) . " " . $UNIT; ?></span>
+        <span class="float-right <?php echo $colorclass; ?>">-<?php echo rawToMnano($fullblock->amount) . " " . $UNIT; ?></span>
     </li>
     <li class="list-group-item">
         From
@@ -200,7 +220,7 @@ if ($block->type === "state (send)") {
 <?php if($block->type === "receive" or $block->type === "open" or $block->type === "state (receive)" or $block->type === "state (open)") : ?>
     <li class="list-group-item">
         Amount
-        <span class="float-right"><?php echo rawToMnano($fullblock->amount) . " " . $UNIT; ?></span>
+        <span class="float-right <?php echo $colorclass; ?>">+<?php echo rawToMnano($fullblock->amount) . " " . $UNIT; ?></span>
     </li>
     <li class="list-group-item">
         From

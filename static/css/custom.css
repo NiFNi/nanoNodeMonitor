@@ -115,3 +115,12 @@ th[role=columnheader]:not(.no-sort):hover:after {
     padding-bottom: 1px;
 }
 
+.green {
+    color: lawngreen;
+}
+.red {
+    color: red;
+}
+.blue {
+    color: blueviolet;
+}
