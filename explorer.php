@@ -61,6 +61,7 @@ $pending = getPendingBlocks($ch, $search, 10);
 $dbconn = pg_connect("host=$pg_host dbname=$pg_dbname user=$pg_user password=$pg_password")
                 or die('Could not connect: ' . pg_last_error());
 ?>
+<?php if($pending->blocks != "") : ?>
 <table class="table table-dark table-hover">
   <thead>
     <tr>
@@ -73,6 +74,7 @@ $dbconn = pg_connect("host=$pg_host dbname=$pg_dbname user=$pg_user password=$pg
     <?php endforeach; ?>
   </tbody>
 </table>
+<?php endif; ?>
   
 <div class="table-responsive">
 <table class="table table-dark table-hover">
