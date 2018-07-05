@@ -47,6 +47,19 @@ function getAddrHistory($ch, $addr, $count)
   return postCurl($ch, $data);
 }
 
+function getPendingBlocks($ch, $addr, $count)
+{
+    $data = array(
+        "action" => "pending",
+        "account" => $addr,
+        "count" => strval($count)
+    );
+
+  // post curl
+  return postCurl($ch, $data);
+}
+
+
 function getBlock($ch, $hash)
 {
   // get version string

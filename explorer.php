@@ -56,10 +56,24 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 <?php if($is_addr) : ?>
 <?php 
-$history = getAddrHistory($ch, $search, 10);
+$history = getAddrHistory($ch, $search, 25);
+$pending = getPendingBlocks($ch, $search, 10);
 $dbconn = pg_connect("host=$pg_host dbname=$pg_dbname user=$pg_user password=$pg_password")
                 or die('Could not connect: ' . pg_last_error());
 ?>
+<table class="table table-dark table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Pending Blocks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach($pending->blocks as $block): ?>
+    <tr><td><div class="truncatehash"><a href="?s=<?php echo $block; ?>"><?php echo $block; ?></a></div></td></tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+  
 <div class="table-responsive">
 <table class="table table-dark table-hover">
   <thead class="">
