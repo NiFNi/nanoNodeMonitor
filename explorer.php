@@ -22,6 +22,9 @@ if (isset($_GET["s"]) && $_GET["s"] !== "") {
         $is_block = true;
     }
 }
+if (!isset($_GET["count"])) {
+    $_GET["count"] = "25";
+}
 ?>
 
 
@@ -32,6 +35,11 @@ if (isset($_GET["s"]) && $_GET["s"] !== "") {
 <div class="col-lg-8">
     <input type="text" value="<?php echo $search?>" name="s" class="form-control" id="explore" aria-describedby="" placeholder="Search for...">
     <small id="exploreHelp" class="form-text text-muted">Input an address or a transaction hash.</small>
+</div>
+
+<div class="col-lg-2">
+    <input type="number" value="<?php echo intval($_GET["count"])?>" name="count" class="form-control">
+    <small id="exploreHelp" class="form-text text-muted">Specify the amount fo transactions to load for addresses.</small>
 </div>
 <div class="col-lg-2">
     <button type="submit" class="btn btn-primary">Search</button>
@@ -56,7 +64,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 <?php if($is_addr) : ?>
 <?php 
-$history = getAddrHistory($ch, $search, 25);
+$history = getAddrHistory($ch, $search, intval($_GET["count"]));
 $pending = getPendingBlocks($ch, $search, 10);
 $dbconn = pg_connect("host=$pg_host dbname=$pg_dbname user=$pg_user password=$pg_password")
                 or die('Could not connect: ' . pg_last_error());
