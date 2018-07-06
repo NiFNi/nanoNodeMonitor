@@ -39,7 +39,7 @@ if (!isset($_GET["count"])) {
 
 <div class="col-lg-2">
     <input type="number" value="<?php echo intval($_GET["count"])?>" name="count" class="form-control">
-    <small id="exploreHelp" class="form-text text-muted">Specify the amount fo transactions to load for addresses.</small>
+    <small id="exploreHelp" class="form-text text-muted">Specify the amount of transactions to load for addresses.</small>
 </div>
 <div class="col-lg-2">
     <button type="submit" class="btn btn-primary">Search</button>
