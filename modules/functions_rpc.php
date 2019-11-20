@@ -16,6 +16,7 @@ function postCurl($ch, $data)
 
   if (!$resp)
   {
+    echo $resp;
     myError("Nano node is not running");
   }
 
@@ -74,3 +75,15 @@ function getBlock($ch, $hash)
   // post curl
   return postCurl($ch, $data);
 }
+
+function getBalance($ch, $addr)
+{
+    $data = array(
+        "action" => "account_balance",
+        "account" => $addr
+    );
+    // post curl
+    return postCurl($ch, $data);
+}
+
+

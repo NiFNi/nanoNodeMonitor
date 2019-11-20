@@ -18,7 +18,7 @@ reps = json.loads(r.text)["representatives"]
 
 result = {"count": len(online), "weight": 0}
 
-for key, val in online.items():
+for key in online:
     if key in reps:
         result["weight"] += int(reps[key])
 

@@ -22,6 +22,9 @@ for name, url in nodes.items():
         result = r.json()
     except ValueError:
         continue
+    if type(result) is bool:
+        print(name)
+        continue
     result["url"] = url
     results[name] = result
 

@@ -26,14 +26,13 @@ include 'modules/header.php';
         node. Because of that I want to give you some personal information about me.
     </p>
     <p>
-        My name is Nico Fricke and I am currently living in Bremen/Germany. I am into Nano since early December 2017.
-        In the Nano Discord I am mainly around in the #support channel where you might have seen me. I am 21 years
-        old and right now I study computer science at the University of Bremen. The plan is to be finished with that
-        in the summer this year.
+        My name is Nico Fricke and I am currently living in Lübeck/Germany. I am into Nano since early December 2017.
+        In the Nano Discord I am mainly around in the #support channel where you might have seen me. I am 22 years
+        old and I work as a Software Developer in a middle sized company.
         You can find me on <a href="https://reddit.com/u/nifni">Reddit</a>,
         <a href="https://twitter.com/nifninif">Twitter</a>,
         <a href="http://steamcommunity.com/profiles/76561198035378497/">Steam</a>,
-        <a href="https://t.me/@NiFNi">Telegram</a>, Matrix (@nif:nifni.net) and Discord (NiF#3422).
+        <a href="https://t.me/@NiFNi">Telegram</a> and Discord (NiF#3422).
     </p>
 
     <h2>Why do I run this node?</h2>
@@ -68,9 +67,8 @@ include 'modules/header.php';
         us :P.
     </p>
     <p>
-        If you want to support me directly you can donate me some Nano to the address at the bottom or scan this qr code:
+        If you want to support me directly you can donate me some Nano to the address at the bottom.
     </p>
-    <img src="static/img/qr.png">
 
     <h2>How can you contact me?</h2>
     <p>
@@ -81,10 +79,10 @@ include 'modules/header.php';
 
     <h2>Why should you use me as your representative?</h2>
     <p>
-        Well in the chapter above I described how I will make sure the node is running 24/7. Also I wrote a bit about me
+        In the chapter above I described how I will make sure the node is running 24/7. Also I wrote a bit about me
         so that you know who I am and when checking my social network sites you can make sure that I am really who I
         claim I am. And last but not least I offer a e-mail list you can subscribe to. I will write about any updates
-        concerning my node (probably about two emails per month). To subscribe just write an e-mail to
+        concerning my node (don't worry I won't spam you). To subscribe just write an e-mail to
         <a href="mailto:nano@nifni.net?subject=[Node Newsletter]">nano@nifni.net</a> from the e-mail
         you want to subscribe with. You can always unsubscribe by just writing me that you want to unsubscribe.
     </p>

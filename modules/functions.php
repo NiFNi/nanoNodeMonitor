@@ -144,11 +144,3 @@ function getBlockAccount($hash, $ch) {
     return reset(getBlock($ch, $hash)->blocks)->block_account;
 }
 
-function getTimeStamp($hash) {
-    // Performing SQL query
-    $query = "SELECT timestamp FROM timestamps where hash='$hash' LIMIT 1";
-    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-    $row = pg_fetch_row($result);
-    pg_free_result($result);
-    return $row[0];
-}

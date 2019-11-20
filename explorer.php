@@ -66,9 +66,10 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 <?php 
 $history = getAddrHistory($ch, $search, intval($_GET["count"]));
 $pending = getPendingBlocks($ch, $search, 10);
-$dbconn = pg_connect("host=$pg_host dbname=$pg_dbname user=$pg_user password=$pg_password")
-                or die('Could not connect: ' . pg_last_error());
+$balance = getBalance($ch, $search);
 ?>
+<p>Account Balance: <?php echo rawToMnano($balance->balance) ?> </p>
+<p>Pending Balance: <?php echo rawToMnano($balance->pending) ?> </p>
 <?php if($pending->blocks != "") : ?>
 <table class="table table-dark table-hover">
   <thead>
@@ -98,12 +99,7 @@ $dbconn = pg_connect("host=$pg_host dbname=$pg_dbname user=$pg_user password=$pg
   <tbody>
     <?php foreach($history->history as $block): ?>
 <?php
-$timestamp = getTimestamp($block->hash);
-if ($timestamp != 0) {
-    $date = date('H:i d-m-Y', $timestamp/1000);
-} else {
-    $date = "N/A";
-}
+$date = "N/A";
 if ($block->type === "send") {
     $account = "to " . $block->destination;
     $accountLink = $block->destination;
@@ -173,7 +169,6 @@ if ($block->type === "state") {
         </tr>
     <?php endforeach; ?>
 <?php
-pg_close($dbconn);
 ?>
   </tbody>
 </table>
@@ -188,10 +183,6 @@ $fullblock = reset(getBlock($ch, $search)->blocks);
 <?php if($fullblock) : ?>
 <?php
 $block = json_decode($fullblock->contents);
-$dbconn = pg_connect("host=$pg_host dbname=$pg_dbname user=$pg_user password=$pg_password")
-                or die('Could not connect: ' . pg_last_error());
-$timestamp = getTimestamp($search);
-pg_close($dbconn);
 if ($block->type === "state") {
     $block->type = "state (" .blockSubType($block, $fullblock) . ")";
 }
@@ -275,7 +266,7 @@ if (strpos($block->type, 'change') !== false) {
     </li>
     <li class="list-group-item">
         UTC Time
-        <span class="float-right truncate"><?php echo date('H:i d-m-Y', $timestamp/1000); ?></span>
+        <span class="float-right truncate"><?php echo "N/A"; ?></span>
     </li>
 </ul>
 
